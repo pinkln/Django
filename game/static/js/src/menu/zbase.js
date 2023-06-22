@@ -3,20 +3,52 @@ class AcGameMenu {
         this.root = root;
         this.$menu = $(`
 <div class="ac-game-menu">
-    <div class="ac-game-menu-feature">
-        <div class="ac-game-menu-feature-item ac-game-menu-feature-item-one">
+    <div class="ac-game-menu-field">
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-single-mode">
             单人模式
         </div>
-        <div class="ac-game-menu-feature-item ac-game-menu-feature-item-many">
+        <br>
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-multi-mode">
             多人模式
         </div>
-        <div class="ac-game-menu-feature-item ac-game-menu-feature-item-setting">
+        <br>
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
             设置
         </div>
     </div>
 </div>
 `);
         this.root.$ac_game.append(this.$menu);
-        this.$single = this.$menu.find('.ac-game-menu-feature-item-one')
+        this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
+        this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
+        this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');
+
+        this.start();
+    }
+
+    start() {
+        this.add_listening_events();
+    }
+
+    add_listening_events() {
+        let outer = this;
+        this.$single_mode.click(function(){
+            outer.hide();
+            outer.root.play.show();
+        });
+        this.$multi_mode.click(function(){
+            console.log("click multi mode");
+        });
+        this.$settings.click(function(){
+            console.log("click settings");
+        });
+    }
+
+    show() {//显示menu
+        this.$menu.show();
+    }
+
+    hide() {//关闭menu
+        this.$menu.hide();
     }
 }
