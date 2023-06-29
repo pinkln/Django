@@ -16,14 +16,14 @@ class AcGameObject {
 
     }
 
-    on_destory() {
+    on_destroy() {
 
     }
 
-    destory() { //delete 当前物体
-        this.on_destory();
+    destroy() { //delete 当前物体
+        this.on_destroy();
 
-        for (let i = 0; i < AC_GAME_OBJECTS.length(); i ++ ) {
+        for (let i = 0; i < AC_GAME_OBJECTS.length; i ++ ) {
             if (AC_GAME_OBJECTS[i] === this) {
                 AC_GAME_OBJECTS.splice(i, 1);
                 break;
