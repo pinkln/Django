@@ -1,3 +1,124 @@
+.ac-game-setting {
+    width: 100%;
+    height: 100%;
+    background-image: url("/static/image/menu/background.gif");
+    background-size: 100% 100%;
+    user-select: none;
+}
+
+.ac-game-setting-login {
+    height: 41vh;
+    width: 20vw;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+
+.ac-game-setting-title {
+    color: white;
+    font-size: 3vh;
+    text-align: center;
+    padding-top: 2vh;
+    margin-bottom: 2vh;
+}
+
+.ac-game-setting-username {
+    display: block;
+    height: 7vh;
+}
+
+.ac-game-setting-password {
+    display: block;
+    height: 7vh;
+}
+
+.ac-game-setting-submit {
+    display: block;
+    height: 7vh;
+}
+
+.ac-game-setting-acwing {
+    display: block;
+    height: 7vh;
+}
+
+.ac-game-setting-item {
+    width: 100%;
+    height: 100%;
+}
+
+.ac-game-setting-item > input {
+    width: 90%;
+    line-height: 3vh;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ac-game-setting-item > button {
+    color: white;
+    width: 90%;
+    line-height: 3vh;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    border-radius: 5px;
+}
+
+.ac-game-setting-error-message {
+    color: red;
+    font-size: 0.8vh;
+    display: inline;
+    float: left;
+    padding-left: 1vw;
+}
+
+.ac-game-setting-option {
+    color: white;
+    font-size: 2vh;
+    display: inline;
+    float: right;
+    padding-right: 1vw;
+    cursor: pointer;
+}
+
+.ac-game-setting-acwing > img {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    display: block;
+}
+
+.ac-game-setting-acwing > div {
+    color: white;
+    font-size: 1.5vh;
+    text-align: center;
+    display: block;
+}
+
+.ac-game-setting-register {
+    height: 49vh;
+    width: 20vw;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+
+
+
 .ac-game-menu {
     width: 100%;
     height: 100%;

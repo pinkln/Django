@@ -18,6 +18,7 @@ class AcGameMenu {
     </div>
 </div>
 `);
+        this.$menu.hide();
         this.root.$ac_game.append(this.$menu);
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
         this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
@@ -192,6 +193,12 @@ class Player extends AcGameObject {
         this.spent_time = 0;
 
         this.cur_skill = null;
+
+        if (this.is_me) {
+            this.img = new Image();
+            this.img.src = this.playground.root.setting.photo;
+        }
+
     }
 
     start() {
@@ -314,10 +321,21 @@ class Player extends AcGameObject {
     }
 
     render() {
-        this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
-        this.ctx.fillStyle = this.color;
-        this.ctx.fill();
+        if (this.is_me) {
+            this.ctx.save();
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            this.ctx.stroke();
+            this.ctx.clip();
+            this.ctx.drawImage(this.img, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2); 
+            this.ctx.restore();
+        }
+        else {
+            this.ctx.beginPath();
+            this.ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
+            this.ctx.fillStyle = this.color;
+            this.ctx.fill();
+        }
     }
 }
 class FireBall extends AcGameObject {
@@ -426,10 +444,97 @@ class AcGamePlayground {
     }
 }
 
+class Setting {
+    constructor(root) {
+        this.root = root;
+        this.platform = "WEB";
+        if (this.root.AcWingOS) this.platform = "ACAPP";
+        this.username = "";
+        this.photo = "";
+
+        this.$setting = $(`
+            <div class="ac-game-setting">
+                <div class="ac-game-setting-login">
+                    <div class="ac-game-setting-title">
+                        登录
+                    </div>
+                    <div class="ac-game-setting-username">
+                        <div class="ac-game-setting-item">
+                            <input type="text" placeholder="用户名">
+                        </div>
+                    </div>
+                    <div class="ac-game-setting-password">
+                        <div class="ac-game-setting-item">
+                            <input type="password" placeholder="密码">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ac-game-setting-register">
+
+                </div>
+            </div>
+            `);
+        this.$login = this.$setting.find(".ac-game-setting-login");
+        this.$login.hide();
+        this.$register = this.$setting.find(".ac-game-setting-register");
+        this.$register.hide();
+        this.root.$ac_game.append(this.$setting);
+
+        this.start();
+    }
+
+    start() {
+        this.getinfo();
+    }
+    
+    register() {
+        this.$login.hide();
+        this.$register.show();
+    }
+
+    login(){
+        this.$register.hide();
+        this.$login.show();
+    }
+
+    getinfo() {
+        let outer = this;
+        $.ajax({
+            url:"http://8.130.66.193:8000/setting/getinfo/",
+            type:"GET",
+            data: {
+                platform: outer.platform,
+            },
+            success:function(resp) {
+                console.log(resp);
+                if(resp.result === "success") {
+                    outer.username = resp.username
+                    outer.photo = resp.photo
+                    outer.hide();
+                    outer.root.menu.show();
+                } else {
+                    outer.login();
+                }
+            }
+        });
+    }
+
+    hide() {
+        this.$setting.hide();
+    }
+
+    show() {
+        this.$setting.show();
+    }
+}
 export class AcGame {
-    constructor(id) {
+    constructor(id, AcWingOS) {
         this.id = id;
         this.$ac_game = $('#' + id);
+        this.AcWingOS = AcWingOS;
+        
+        this.setting = new Setting(this);
         this.menu = new AcGameMenu(this);
         this.play = new AcGamePlayground(this);
 
