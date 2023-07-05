@@ -514,7 +514,7 @@ class Setting {
                         </div>
                     </div>
                     <div class="ac-game-setting-error-message">
-                        
+
                     </div>
                     <div class="ac-game-setting-option">
                         登录
@@ -549,6 +549,8 @@ class Setting {
 
         this.$register.hide();
 
+        this.$acwing_login = this.$setting.find(".ac-game-setting-acwing");
+
         this.root.$ac_game.append(this.$setting);
 
         this.start();
@@ -560,8 +562,14 @@ class Setting {
     }
 
     add_listening_events() {
+        let outer = this;
+
         this.to_login();
         this.to_register();
+
+        this.$acwing_login.click(function() {
+            outer.acwing_login();
+        });
     }
 
     to_login() {
@@ -584,6 +592,19 @@ class Setting {
 
         this.$register_submit.click(function() {
             outer.register_on_remote();
+        });
+    }
+
+    acwing_login() {
+        $.ajax({
+            url: "http://8.130.66.193:8000/setting/acwing/web/apply_code/",
+            type: "GET",
+            success: function(resp){
+                console.log(resp);
+                if(resp.result === "success") {
+                   window.location.replace(resp.apply_code_url);
+                }
+            }
         });
     }
 
