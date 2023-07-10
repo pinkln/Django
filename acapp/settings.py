@@ -26,12 +26,13 @@ SECRET_KEY = 'django-insecure-a73$ehv4hj#&x+tqv0k=h+zzup-n13^#*tetkp4)p&rfvbxj2^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["8.130.66.193"]
+ALLOWED_HOSTS = ["8.130.66.193", "www.lineng01213.xyz"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'game.apps.GameConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -140,3 +141,15 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ASGI_APPLICATION = 'acapp.asgi.application'
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+            },
+        },
+    }
+
+ROOM_CAPACITY = 5       #最大人数：5
