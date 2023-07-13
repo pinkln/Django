@@ -158,7 +158,6 @@ class Setting {
             url: "http://8.130.66.193:8000/setting/acwing/web/apply_code/",
             type: "GET",
             success: function(resp){
-                console.log(resp);
                 if(resp.result === "success") {
                     window.location.replace(resp.apply_code_url);
                 }
@@ -180,7 +179,6 @@ class Setting {
                 password: password
             },
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {
                     location.reload();
                 } else {
@@ -206,7 +204,6 @@ class Setting {
                 password_confirm: password_confirm,
             },
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {
                     location.reload();  // 刷新
                 } else {
@@ -217,13 +214,15 @@ class Setting {
     }
 
     logout_on_remote() {  //登出
-        if (this.platform === "ACAPP") return false;
+        if (this.platform === "ACAPP") {
+            this.root.AcWingOS.api.window.close();
+            return false;
+        }
 
         $.ajax({
             url: "http://8.130.66.193:8000/setting/logout/",
             type: "GET",
             success: function(resp) {
-                console.log(resp);
                 if (resp.result === "success") {
                     location.reload();
                 }
@@ -245,8 +244,6 @@ class Setting {
         let outer = this;
 
         this.root.AcWingOS.api.oauth2.authorize(appid, redirect_uri, scope, state, function(resp) {
-            console.log("called from acapp_login function");
-            console.log(resp);
             if (resp.result === "success") {
                 outer.username = resp.username;
                 outer.photo = resp.photo;
@@ -279,7 +276,6 @@ class Setting {
                 platform: outer.platform,
             },
             success:function(resp) {
-                console.log(resp);
                 if(resp.result === "success") {
                     outer.username = resp.username
                     outer.photo = resp.photo
