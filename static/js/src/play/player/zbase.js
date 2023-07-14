@@ -70,7 +70,7 @@ class Player extends AcGameObject {
         });
         this.playground.game_map.$canvas.mousedown(function(e) {
             if (outer.playground.state !== "fighting") 
-                return false;
+                return true;
             if (outer.cur_skill === "heal") {
                 if (outer.heal_coldtime > outer.eps)
                     return false;
@@ -118,7 +118,18 @@ class Player extends AcGameObject {
 
         });
 
-        $(window).keydown(function(e) {
+        this.playground.game_map.$canvas.keydown(function(e) {
+            if (e.which === 13) {
+                if (outer.playground.mode === "multi mode") {
+                    outer.playground.chat_field.show_input();
+                    return false;
+                }
+            } else if (e.which === 27) {
+                if (outer.playground.mode === "multi mode") {
+                    outer.playground.chat_field.hide_input();
+                }
+            }
+
             if (outer.playground.state !== "fighting") {
                 return true;
             }
