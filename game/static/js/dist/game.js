@@ -607,6 +607,18 @@ class Player extends AcGameObject {
             this.ctx.clip();
             this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale);
             this.ctx.restore();
+
+            if (this.character === "me") {
+                this.ctx.font = "20px serif";
+                this.ctx.fillStyle = "white";
+                this.ctx.fillText(this.playground.root.setting.username, this.x * scale, (this.y + 0.065) * scale, 200);
+            }
+
+            if (this.character === "enemy") {
+                this.ctx.font = "20px serif";
+                this.ctx.fillStyle = "white";
+                this.ctx.fillText(this.username, this.x * scale, (this.y + 0.065) * scale, 200);
+            }
         }
         else {
             this.ctx.beginPath();
@@ -842,16 +854,6 @@ class MultiPlayerSocket {
         };
     }
 
-    send_create_player(username, photo) {
-        let outer = this;
-        this.ws.send(JSON.stringify({
-            'event': "create_player",
-            'uuid': outer.uuid,
-            'username': username,
-            'photo': photo,
-        }));
-    }
-
     get_player(uuid) {
         let players = this.playground.players;
         for (let i = 0; i < players.length; i ++ ) {
@@ -860,6 +862,16 @@ class MultiPlayerSocket {
                 return player;
         }
         return null;
+    }
+
+    send_create_player(username, photo) {
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "create_player",
+            'uuid': outer.uuid,
+            'username': username,
+            'photo': photo,
+        }));
     }
 
     receive_create_player(uuid, username, photo) {

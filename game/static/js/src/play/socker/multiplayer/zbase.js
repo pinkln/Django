@@ -38,16 +38,6 @@ class MultiPlayerSocket {
         };
     }
 
-    send_create_player(username, photo) {
-        let outer = this;
-        this.ws.send(JSON.stringify({
-            'event': "create_player",
-            'uuid': outer.uuid,
-            'username': username,
-            'photo': photo,
-        }));
-    }
-
     get_player(uuid) {
         let players = this.playground.players;
         for (let i = 0; i < players.length; i ++ ) {
@@ -56,6 +46,16 @@ class MultiPlayerSocket {
                 return player;
         }
         return null;
+    }
+
+    send_create_player(username, photo) {
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "create_player",
+            'uuid': outer.uuid,
+            'username': username,
+            'photo': photo,
+        }));
     }
 
     receive_create_player(uuid, username, photo) {
