@@ -54,7 +54,7 @@ class Pool:
                 'uuid': p.uuid,
                 'username': p.username,
                 'photo': p.photo,
-                'hp': 100,
+                'hp': 80,
             })
         cache.set(room_name, players, 3600)  # 有效时间：1小时
         for p in ps:

@@ -95,7 +95,7 @@ class MultiPlayer(AsyncWebsocketConsumer):
         for player in players:
             if player['uuid'] == data['attackee_uuid']:
                 player['hp'] -= 25
-                print(player['hp'], data['attackee_uuid'])
+
         remain_cnt = 0
         for player in players:
             if player['hp'] > 0:
@@ -153,7 +153,6 @@ class MultiPlayer(AsyncWebsocketConsumer):
         for player in players:
             if player['uuid'] == data['uuid']:
                 player['hp'] += (25 * 1.5)
-                print(player['hp'], data['uuid'])
 
         await self.channel_layer.group_send(
             self.room_name,
