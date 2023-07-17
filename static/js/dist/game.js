@@ -347,9 +347,9 @@ class Player extends AcGameObject {
 
     start() {
         this.playground.player_count += 1;
-        this.playground.notice_board.write("已就绪： " + this.playground.player_count + "人");
+        this.playground.notice_board.write("已就绪： " + this.playground.player_count + " 人/ 3 人");
 
-        if (this.playground.player_count >= 5) {
+        if (this.playground.player_count >= 3) {
             this.playground.state = "fighting";
             this.playground.notice_board.write("Fighting");
         }
@@ -611,7 +611,7 @@ class Player extends AcGameObject {
             if (this.character === "me") {
                 this.ctx.font = "20px serif";
                 this.ctx.fillStyle = "white";
-                this.ctx.fillText(this.playground.root.setting.username, this.x * scale, (this.y + 0.065) * scale, 200);
+                this.ctx.fillText(this.playground.root.setting.username, this.x * scale, (this.y + 0.072) * scale, 200);
             }
 
             if (this.character === "enemy") {

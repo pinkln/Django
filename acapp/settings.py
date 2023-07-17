@@ -152,4 +152,4 @@ CHANNEL_LAYERS = {
         },
     }
 
-ROOM_CAPACITY = 5       #最大人数：5
+ROOM_CAPACITY = 3       #最大人数
