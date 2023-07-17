@@ -19,15 +19,15 @@ class AcGameObject {
     }
 
     start() { //第一帧
-    
     }
 
     update() { //每一帧
-
     }
 
-    on_destroy() {
+    late_update() {  // 在每一帧的最后执行一次
+    }
 
+    on_destroy() { //结束前一次
     }
 
     destroy() { //delete 当前物体
@@ -55,6 +55,12 @@ let AC_GAME_ANIMATION = function(timestamp) {
             obj.update();
         }
     }
+
+    for (let i = 0; i < AC_GAME_OBJECTS.length; i ++ ) {
+        let obj = AC_GAME_OBJECTS[i];
+        obj.late_update();
+    }
+
     last_timestamp = timestamp;
 
     requestAnimationFrame(AC_GAME_ANIMATION);
